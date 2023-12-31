@@ -49,7 +49,6 @@ tensorflow (2.15.0)
 pandas (2.1.4)
 numpy (1.26.2)
 scikit-learn (1.3.2)
-sqlite3
 ```
 
 ### Suggestions
