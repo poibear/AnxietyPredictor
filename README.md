@@ -42,14 +42,18 @@ This project utilizes a Flask app, acting as a front-end interface for the end u
 ### Usage
 Execute ``app.py`` and navigate to your local IP (or [localhost](localhost:8080)) on port 8080.
 
-### Dependencies
+### Dependencies (tested)
 ```
 Flask (3.0.0)
-tensorflow (2.15.0)
+tensorflow (2.15.0 w/ CUDA)
 pandas (2.1.4)
 numpy (1.26.2)
 scikit-learn (1.3.2)
+notebook* (7.0.6)
+ipykernel* (6.28.0)
 ```
+\* - Dependencies are essential for running the proof of concept Jupyter Notebook in the TESTING directory
+
 
 ### Suggestions
 The implementation of this project is open to suggestions in the [Error](https://github.com/poibear/AnxietyPredictor/errors) section of this repository. The code is prone to sluggish execution time and is always open to optimization in all aspects (especially backend processes).
@@ -57,6 +61,6 @@ The implementation of this project is open to suggestions in the [Error](https:/
 ## Attribution & License
 This project is licensed under the GNU General Public License v3.0. Additionally, this project's dataset, "Student Stress Factors: A Comprehensive Analysis," is licensed under the Apache License 2.0. Refer to the [LICENSE](LICENSE.txt) file regarding usage on the project and the [DATASET LICENSE](DATASET_LICENSE.txt) file for more details on usage of the dataset.
 - **Student Stress Factors: A Comprehensive Analysis**
-    - Source: Kaggle (Uploader: [rxnach](https://www.kaggle.com/rxnach) (Chhabii as of 12-21-2023))
+    - Source: Kaggle (Uploader: [rxnach](https://www.kaggle.com/rxnach))
     - License: Apache 2.0
     - Link: [Kaggle Dataset](https://www.kaggle.com/datasets/rxnach/student-stress-factors-a-comprehensive-analysis/)
