@@ -16,11 +16,9 @@ class AnxietyPredictor:
     """An AI that can predict anxiety levels, according to the GAD-7 scale, based
     on leading factors of anxiety."""
     
-    default_csv_filename = "stress_level_dataset.csv"
-    
-    def __init__(self):
+    def __init__(self, csv_filename="stress_level_dataset.csv"):
         # preparation stage
-        self.raw_ai_dataset = self._load_dataset()
+        self.raw_ai_dataset = self._load_dataset(csv_filename)
         self.features, self.label = self._get_data_points(self.raw_ai_dataset)
         
         # preprocessing stage
@@ -28,7 +26,7 @@ class AnxietyPredictor:
         self.nn_dataset = self._prepare_dataset(self.normalized_ai_dataset)
     
     
-    def _load_dataset(self, csvfilename=default_csv_filename) -> pd.DataFrame:
+    def _load_dataset(self, csvfilename) -> pd.DataFrame:
         """Loads a (CSV) dataset used to train the AI model by its filename
         Returns a Pandas DataFrame of the dataset when successfully loaded
         Returns None when the path to the dataset cannot be found
@@ -143,9 +141,32 @@ class AnxietyPredictor:
         This method does NOT accept a label for AI prediction (defeats the entire purpose).
         Method takes **kwargs for each parameter, with keys being the factors and items being
         the values in their respective non-formatted scaling.
-        Return Format: (Normalized Guess, Scaled (GAD-7) Guess)"""
+        Return Format: (Normalized Guess, Scaled (GAD-7) Guess) or None"""
         try:
-            anx_factors = {k: [v] for k, v in raw_anx_factors.items()}
+            # scikit minmaxscaler requires preserved order to normalize
+            ordered_keys = [
+                "self_esteem",
+                "mental_health_history",
+                "depression",
+                "headache",
+                "blood_pressure",
+                "sleep_quality",
+                "breathing_problem",
+                "noise_level",
+                "living_conditions",
+                "safety",
+                "basic_needs",
+                "academic_performance",
+                "study_load",
+                "future_career_concerns",
+                "social_support",
+                "peer_pressure",
+                "extracurricular_activities",
+                "bullying",
+            ]
+            
+            #anx_factors = {k: [int(v)] for k, v in raw_anx_factors.items()}
+            anx_factors = {k: [int(raw_anx_factors[k])] for k in ordered_keys}
             
             rawdf = pd.DataFrame.from_dict(anx_factors)
             rawdf.insert(0, self.label, 0.0, True)  # to allow normalization transform, use float to insert pred as float later
@@ -159,7 +180,7 @@ class AnxietyPredictor:
             # normalize data and convert to DataFrame
             normalized_arr = np.insert(normalized_arr, 0, prediction[0][0], axis=-1) # add back into anxiety_level
             
-            # this sucks but inverse_transforms requires that we add back all our existing features/label before giving us the original data            
+            # inverse_transforms requires that we add back all our existing features/label before giving us the original data            
             resultarr = self.normalizer.inverse_transform(normalized_arr) #normalizeddf
             resultdf = pd.DataFrame(resultarr, index=rawdf.index, columns=rawdf.columns) #, index=normalizeddf.index, columns=normalizeddf.columns
             
@@ -168,19 +189,9 @@ class AnxietyPredictor:
             
             return (anxiety_raw, anxiety_scaled)
             
-        except ValueError as e:
+        except [ValueError, TypeError] as e:
             print(e)
-            print(
-                f"Error when adding anxiety factors to a DataFrame in method \"{self.predict_anxiety.__name__}\". Check your keyword arguments.\n"
-            +   f"Are you sure that you entered the same number and names of KEYS ({len(anx_factors.keys())}) as the FEATURES ({self.normalized_ai_dataset.shape[1]-1}) in your dataset?"
-            )
-        
-        except TypeError:
-            print(
-                f"Error when importing arguments to method \"{self.predict_anxiety.__name__}\".\n"
-            +   "Are you sure you've define your dictionary as a keyword argument (e.g., raw_anx_factors={\"foo\": 3})?"
-            +   "Make sure your (Sequential) model is passed as your first argument for this method (from build_model())."
-            )
+            return None
 
 
 if __name__ == "__main__":
@@ -193,27 +204,28 @@ if __name__ == "__main__":
     print("TRAINING MODEL")
     instance.train_model(model)
     
-    # test information
+    #TEST INFO    
     info = {
-        "self_esteem": 19,
-        "mental_health_history": 0,
-        "depression": 3,
-        "headache": 2,
-        "blood_pressure": 1,
         "sleep_quality": 2,
-        "breathing_problem": 2,
         "noise_level": 2,
-        "living_conditions": 0,
-        "safety": 4,
-        "basic_needs": 4,
-        "academic_performance": 3,
+        "living_conditions": 2,
+        "safety": 2,
+        "basic_needs": 2,
+        "academic_performance": 2,
         "study_load": 2,
-        "future_career_concerns": 4,
-        "social_support": 3,
+        "future_career_concerns": 2,
+        "social_support": 2,
+        "headache": 2,
+        "blood_pressure": 2,
+        "breathing_problem": 2,
+        "self_esteem": 15,
+        "mental_health_history": 0,
+        "depression": 13,
         "peer_pressure": 2,
-        "extracurricular_activities": 1,
-        "bullying": 4
+        "extracurricular_activities": 2,
+        "bullying": 2
     }
+
     
     print("PREDICTING ANXIETY")
     raw_result, scaled_result = instance.predict_anxiety(model, info)

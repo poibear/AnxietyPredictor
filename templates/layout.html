@@ -1,4 +1,3 @@
-<!--Survey Layout-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_survey.css')}}">
     <!--fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">  <!--for main section-->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet" />
     <!--end of fonts-->
+    <style>{% block style %}{% endblock %}</style>
 </head>
 <body>
     <div id="wrapper">
@@ -45,7 +47,10 @@
         </div>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    {% block script %}
-    {% endblock %}
+    <script src="{{ url_for('static', filename='form_automation.js') }}"></script>
+    <script>
+        {% block script %}
+        {% endblock %}
+    </script>
 </body>
 </html>

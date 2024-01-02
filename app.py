@@ -1,8 +1,14 @@
-# TODO return DB values to survey to output in divs
+# TODO allow customization of dataset for ap_backend
 import waitress
 import sqlite3
 import os
-from flask import Flask, redirect, render_template, request, url_for
+from ap_backend import AnxietyPredictor
+from flask import Flask, redirect, render_template, request, url_for, flash
+
+ai = AnxietyPredictor()
+        
+model = ai.build_model()
+ai.train_model(model)
 
 app = Flask(__name__, template_folder="templates")
 
@@ -12,7 +18,7 @@ def index():
 
 
 @app.route("/form")
-def form():
+def form():     
     topics_db = sqlite3.connect(os.path.join(os.getcwd(), "static/anxiety_factors_form.db"))
     topic_cursor = topics_db.cursor()
     
@@ -29,13 +35,20 @@ def form():
     return render_template("survey.html", topic_values=topic_values, topic_display=topic_display)
 
 
-@app.route("/results")
+@app.route("/results", methods=["GET", "POST"])
 def results():
-    if request.method == "POST":
+    if request.method == "GET":
+        flash("You did not complete the survey. Try again.", "error")
+        return redirect(url_for("form"))
         
-        return render_template("results.html")
+    if request.method == "POST":        
+        anxiety_params = {k: v for k, v in request.form.items()}        
+        _, scaled_result = ai.predict_anxiety(model, anxiety_params)
+
+        return render_template("results.html", anxiety_level=scaled_result)
     
-    return render_template("results.html")
+    flash("You need to fill out the survey before getting results", "warning")
+    return redirect(url_for("form"))
 
 
 if __name__ == "__main__":
@@ -43,5 +56,6 @@ if __name__ == "__main__":
     port = "8080"
     app.config["TEMPLATES_AUTO_RELOAD"] = True # reload on html change
     app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0 # no cache
+    app.secret_key = 'supa secretz'
     app.debug = True
-    app.run(host=host, port=port)
+    app.run(host=host, port=port, use_reloader=False)  # to avoid retraining ai model twice
