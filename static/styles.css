@@ -42,10 +42,6 @@ a {
 }
 
 #wrapper {
-  /* padding-top: 3.5vh;
-    padding-left: 2vw;
-    padding-right: 2vw;
-    padding-bottom: 2vh; */
   padding-top: var(--wrapper-pt);
   padding-right: var(--wrapper-pr);
   padding-bottom: var(--wrapper-pb);
@@ -58,8 +54,6 @@ a {
 
 nav {
   display: inline;
-  /* position: absolute; */
-  /*index only*/
 
   /* stretch nav to stretch div */
   width: 100%;
@@ -99,9 +93,6 @@ button {
   background-color: var(--nav-bg-color);
 
   border-style: none;
-  /* border-radius: 25px;
-
-  padding: 1.25em 2.188em 1.25em 2.188em;*/
 } 
 
 #nav-flex-links:first-child {
@@ -224,9 +215,7 @@ section {
 
 .section-name {
   display: flex;
-  /*for block display (newline)*/
   color: #818181;
-  /* font-size: 1.1em; */
 }
 
 .thingy span {
@@ -293,7 +282,6 @@ section {
 }
 
 footer {
-  /* min-width: 100%; */
   max-width: 100%;
 
   min-height: 5vh;

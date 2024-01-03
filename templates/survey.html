@@ -16,18 +16,18 @@
     
     <div id="survey-progress-bar">
         <div class="survey-topic">
-            <span class="topic-name">Start</span>
-            <div class="progress-bar"></div>
+            <label class="topic-name" for="progress-bar">Start</label>
+            <progress class="progress-bar" value="1" max="1"></progress>
         </div>
         {% for desc in topic_display %}
         <div class="survey-topic">
-            <span class="topic-name">{{ desc[0] }}</span>
-            <div class="progress-bar"></div>
+            <label class="topic-name" for="progress-bar">{{ desc[0] }}</label>
+            <progress class="progress-bar" value="0" max="1"></progress>
         </div>
         {% endfor %}
         <div class="survey-topic">
-            <span class="topic-name">Finish</span>
-            <div class="progress-bar"></div>
+            <label class="topic-name" for="progress-bar">Finish</label>
+            <progress class="progress-bar"  value="0" max="1"></progress>
         </div>
     </div>
     <form action="{{ url_for('results') }}" method="post">
@@ -45,18 +45,21 @@
             <div class="step step-{{ loop.index + 1}}">
                 <h2>{{ desc[0] }}</h2>
                 <p class="caption">{{ desc[1] }}</p>
-                {% for topic_value in topic_values %}
-                    {% if topic_value[0] == desc[0] %}
-                    <div class="slider-group">
-                        <p>{{ topic_value[4] }}</p>
-                        <div class="slider">
+                <div class="sliders">
+                    {% for topic_value in topic_values %}
+                        {% if topic_value[0] == desc[0] %}
+                        <div class="slider-group">
                             {% set input_id = topic_value[1].lower().replace(' ', '_') %} <!--important for giving this format to ai-->
-                            <input type="range" min="{{ topic_value[2] }}" max="{{ topic_value[3] }}" value="{{ (topic_value[2] + topic_value[3]) // 2}}" class="slider" name="{{ input_id }}">
+                            <label for="{{ input_id }}">{{ topic_value[1] }}</label>
+                            <div class="slider">
+                                <p>{{ topic_value[4] }}</p>
+                                <input type="range" min="{{ topic_value[2] }}" max="{{ topic_value[3] }}" value="{{ (topic_value[2] + topic_value[3]) // 2}}" class="slider" name="{{ input_id }}">
+                                <p>{{ topic_value[5] }}</p>
+                            </div>
                         </div>
-                        <p>{{ topic_value[5] }}</p>
-                    </div>
-                    {% endif %}
-                {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
                 <button type="button" class="back-btn">Back</button> <!--prevent button from submitting form-->
                 <button type="button" class="next-btn">Next</button>
             </div>

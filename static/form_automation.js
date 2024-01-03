@@ -4,7 +4,7 @@ $(document).ready(function () {
     const steps = $('.step');
     const nextBtn = $('.next-btn');
     const prevBtn = $('.back-btn');
-    const form = $('.form');
+    const progressBars = $('.progress-bar');
 
     
     nextBtn.each(function() {
@@ -22,21 +22,35 @@ $(document).ready(function () {
 
 
     function changeStep(action) {
-        let index = 0; // start @ 0th step
-        const active = $("form .step.active");
-        index = steps.index(active);
-        $(steps[index]).removeClass('active');
+        let stepIndex = 0; // start @ 0th step
+        let barIndex = 0;
+
+        const inactiveBarClr = $("html").css('--inactive-bar');
+        const activeBarClr = $("html").css('--active-bar');
+
+        const stepActive = $("form .step.active");
+        const barActive = $(".survey-topic .progress-bar[value='1']");
+
+        stepIndex = steps.index(stepActive);
+        barIndex = progressBars.index(barActive);
+
+        // set current step/bar to inactive before changing next current one
+        $(steps[stepIndex]).removeClass("active");
+
+        $(progressBars[barIndex]).val("0");
 
         if (action == "next") {
-            index++;
+            stepIndex++;
+            barIndex++;
         }
 
         else if (action == "back") {
-            index--;
+            stepIndex--;
+            barIndex--;
         }
 
-        $(steps[index]).addClass("active");
-        console.log(index);
+        $(steps[stepIndex]).addClass("active");
+        $(progressBars[barIndex]).val("1");
     }
 
 

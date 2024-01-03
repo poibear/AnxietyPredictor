@@ -1,21 +1,15 @@
-# TODO allow customization of dataset for ap_backend
+# TODO allow customization of dataset for ap_backend, add 404 w/ @app.errorhandler(404) page
 import waitress
 import sqlite3
 import os
 from ap_backend import AnxietyPredictor
 from flask import Flask, redirect, render_template, request, url_for, flash
 
-ai = AnxietyPredictor()
-        
-model = ai.build_model()
-ai.train_model(model)
-
 app = Flask(__name__, template_folder="templates")
 
 @app.route("/")
 def index():
     return render_template("index.html")
-
 
 @app.route("/form")
 def form():     
@@ -34,6 +28,10 @@ def form():
     
     return render_template("survey.html", topic_values=topic_values, topic_display=topic_display)
 
+ai = AnxietyPredictor()
+        
+model = ai.build_model()
+ai.train_model(model)
 
 @app.route("/results", methods=["GET", "POST"])
 def results():
@@ -58,4 +56,5 @@ if __name__ == "__main__":
     app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0 # no cache
     app.secret_key = 'supa secretz'
     app.debug = True
-    app.run(host=host, port=port, use_reloader=False)  # to avoid retraining ai model twice
+    
+    app.run(host=host, port=port)  # to avoid retraining ai model twice

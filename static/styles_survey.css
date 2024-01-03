@@ -1,5 +1,8 @@
 :root {
     --survey-color: #3F481F;
+
+    --inactive-bar: #222610;
+    --active-bar: #44357B;
 }
 
 #wrapper .panel {
@@ -25,9 +28,62 @@
     margin: 0 auto;
 }
 
-.survey-progress-bar {
+#survey-progress-bar {
+    display: flex;
+    color: white;
+
+    margin-bottom: 10vh;
+}
+
+.survey-topic {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
+.survey-topic:not(:last-child) {
+    padding-right: 2em;
+}
+
+.progress-bar {
+    background-color: var(--inactive-bar);
+
+    border-radius: 25px;
+    border-style: none;
+
+    height: 10%;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    
+    text-align: center;
+}
+
+.step-1 svg {
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+}
+
+label {
+    color: white;
+}
+
+.sliders { /*all visible sliders in one step*/
+    display: flex;
+    flex-direction: row;
+}
+
+.slider-group { /*one slider with its associated descriptions & title*/
+    display: inline-block;
+    width: 100%;
+    margin-top: 1vh;
+}
+
+.slider { /*one slider with ONLY its associated descriptions*/
     display: inline;
-    background-color: white;
 }
 
 .next-btn, .prev-btn, .submit-btn {
@@ -61,9 +117,4 @@
 
 .step.active {
     display: block;
-}
-
-.slider-group {
-    width: 100%;
-    margin-top: 1vh;
 }
