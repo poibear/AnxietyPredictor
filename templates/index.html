@@ -6,17 +6,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AnxietySense</title>
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
-    <link rel="stylesheet" href="../static/styles.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
     <!--fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet" />
-    <!--for main section-->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap" rel="stylesheet" />
-    <!--for bold-statement-->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&family=Lato:wght@300&display=swap" rel="stylesheet">     <!--for main section-->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">    <!--for bold-statement-->
     <!--end of fonts-->
     <style>
         nav {
@@ -30,47 +27,81 @@
         <div id="hero-banner">
             <nav>
                 <div id="nav-flex-links">
-                    <img class="logo" src="../static/logo.png" width="208" height="117" alt="AnxietySense Logo" />
+                    <a href="/"><img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" width="208" height="117" alt="AnxietySense Logo"></a>
                     <div class="nav-btn-group">
                         <button class="nav-pill-btn"><a href="/">Home</a></button>
                         <button class="nav-pill-btn"><a href="about-us">About Us</a></button>
-                        <button class="nav-pill-btn"><a href="implementation">Implementation</a></button>
                         <button class="nav-pill-btn"><a href="//github.com/poibear/AnxietyPredictor">Github</a></button>
                     </div>
-                    <button><a href="form"><b>START NOW &nearr;</b></a></button>
+                    <button><a href="form"><b>GET STARTED</b></a></button>
                 </div>
             </nav>
-            <img class="hero-img" src="../static/hero-banner.png"
+            <img class="hero-img" src="{{ url_for('static', filename='images/hero-banner.png') }}"
                 alt="Hero Banner of Man in Distress with Hand on Forehead Sitting on Couch in Dark Room" />
             <h1>Revolutionizing anxiety profiling with artificial intelligence insight</h1>
         </div>
     </header>
     <main>
         <section>
-            <div class="section-flex">
-                <div class="section-left">
-                    <!-- <span class="main-section">(01)</span> -->
-                    <span class="section-name">Anxiety Attributes</span>
-                    <div class="thingy">
-                        <span>
-                            Sleep Quality Mental-Health History Blood
-                            Pressure Peer Pressure Self-Esteem and
-                            more...
-                        </span>
-                    </div>
-                    <!-- <div class="empty-space"></div> -->
-                </div>
-                <div class="section-right">
+            <div class="section-flex centered">
+                <div class="section-center">
+                    <h2>About AnxietySense</h2>
                     <span class="bold-statement">
-                        There are <b>numerous factors</b> that account
-                        to overall anxiety levels that many cannot keep
-                        track of.
+                        Our <b>mission</b> is to empower you by unraveling <b>hidden anxiety factors</b>,
+                        guiding you towards understanding, and offering <b>personalized solutions</b>
+                        through our innovative AI-driven survey.
                     </span>
-                    <div class="explore">
-                        <button class="explore-btn">
-                            <a href="form">START NOW &nearr;</a>
-                        </button>
-                    </div>
+                    <p class="description">We're committed to transforming the way you approach anxiety,
+                        fueled by a relentless pursuit of innovation. Our dedication
+                        ensures your path to peace and well-being is as
+                        exceptional as you are.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="why-us centered">
+            <div class="panel">
+                <h2>Why Choose Us?</h2> <!--fix this padding later-->
+                <div class="section-center">
+                    <span class="main-section">Targeted Assistance</span>
+                    <p class="description key-point">
+                        Our AI prediction doesn't just spot issues; it pinpoints areas needing attention,
+                        enabling targeted interventions specific to your needs.
+                    </p>
+                    <img src="{{ url_for('static', filename='images/targeted-assistance.jpg') }}" width="512" height="512">
+                </div>
+                <div class="section-center">
+                    <span class="main-section">Empowerment Through Insight</span>
+                    <p class="description key-point">
+                        We provide you with valuable insights into your anxiety patterns by
+                        harnessing the capabilities of AI. Our otherwordly platform of understanding
+                        arms you with the tools to take proactive steps and regain control of
+                        your mental health journey.
+                    </p>
+                    <img src="{{ url_for('static', filename='images/empowerment.jpg') }}" width="512" height="512">
+                </div>
+                <div class="section-center">
+                    <span class="main-section">Accessible and Timely Help</span>
+                    <p class="description key-point">
+                        Our systems are designed to detect potential anxiety triggers preemptively.
+                        By pinpointing specific areas needing attention, we offer tailored interventions
+                        for your unique needs, ensuring timely support.
+                    </p>
+                    <img src="{{ url_for('static', filename='images/accessible-help.jpg') }}" width="512" height="512">
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="section-flex centered">
+                <div class="section-center explore">
+                    <h2>Ready to Start?</h2>
+                    <p>
+                        Take the first step towards understanding your anxiety—share your factors,
+                        discover insights with our AI, and begin your journey to a calmer state of mind.
+                    </p>
+                    <button class="explore-btn">
+                        <a href="form">GET STARTED</a>
+                    </button>
                 </div>
             </div>
         </section>
@@ -80,7 +111,8 @@
     <div class="panel">
         <!-- <span class="main-section">(03)</span> -->
         <span id="footer-text">
-            2023 Josh Nguyen CC BY-SA 4.0
+            2023 Josh Nguyen
+            CC BY-SA 4.0
             <div id="copyright-icons">
                 <svg version="1.0" id="CC" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="2em" height="2em"
@@ -114,10 +146,7 @@
                     </g>
                 </svg>
             </div>
-            With creative
-            <span style="color: #e25555">&#9829;</span> from OpenAI's
-            <a href="https://openai.com/chatgpt" target="_blank">ChatGPT</a>
-        </span>
+            <span>Creative descriptions crafted by OpenAI's <a href="https://openai.com/chatgpt" target="_blank">ChatGPT</a></span>
         <!-- </div> -->
     </div>
 </footer>

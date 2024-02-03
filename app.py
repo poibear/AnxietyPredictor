@@ -7,6 +7,11 @@ from flask import Flask, redirect, render_template, request, url_for, flash
 
 app = Flask(__name__, template_folder="templates")
 
+ai = AnxietyPredictor()
+        
+model = ai.build_model()
+ai.train_model(model)
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -28,10 +33,6 @@ def form():
     
     return render_template("survey.html", topic_values=topic_values, topic_display=topic_display)
 
-ai = AnxietyPredictor()
-        
-model = ai.build_model()
-ai.train_model(model)
 
 @app.route("/results", methods=["GET", "POST"])
 def results():

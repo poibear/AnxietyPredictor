@@ -1,0 +1,180 @@
+:root {
+    --survey-color: #3F481F;
+
+    --inactive-bar: #222610;
+    --active-bar: #44357B;
+
+    --next-btn-color: #362a61;
+}
+
+#wrapper .panel {
+    background-color: var(--survey-color);
+
+    margin: 18vh 4vw 12vh 4vw;
+    padding: 3em 5em 3em 5em;
+
+    max-width: 100%;
+    height: auto;
+}
+
+.alert {
+    background-color: #8a7427;
+    color: white;
+
+    width: 25%;
+
+    font-weight: 700;
+    border-radius: 25px;
+    border-style: none;
+
+    text-align: center;
+    vertical-align: middle;
+    
+    margin: 0 auto;
+}
+
+#survey-progress-bar {
+    display: flex;
+    color: white;
+
+    gap: 2em;
+}
+
+.survey-topic {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
+/* .survey-topic:not(:last-child) {
+    padding-right: 2em;
+} */
+
+.progress-bar {
+    background-color: var(--inactive-bar);
+
+    border-radius: 25px;
+    border-style: none;
+
+    height: 10%;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    
+    text-align: center;
+    flex: 0 1 2vw;
+
+    margin-top: 8vh;
+}
+
+.step-1 svg {
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+}
+
+label {
+    color: white;
+}
+
+.sliders { /*all visible sliders in one step*/
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 5vh;
+}
+
+.slider-group { /*one slider with its associated descriptions & title*/
+    display: grid;
+    grid-template-columns: .5fr .5fr .5fr;
+    grid-template-rows: .1fr .15fr .1fr;
+
+    gap: 0px 2em;
+
+    grid-template-areas: "label label label" "slider-info slider-info slider-info" ". progress-values .";
+}
+
+.slider-group label {
+    grid-area: label;
+}
+
+.slider-group .slider-info { /*one slider with ONLY its associated descriptions*/
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+
+    gap: 0px 2em;
+
+    grid-template-areas: "min-desc slider max-desc";
+
+    align-items: center;
+    grid-area: slider-info;
+}
+
+.slider-info .min-desc {
+    grid-area: min-desc;
+}
+
+.slider-info .slider {
+    grid-area: slider;
+}
+
+.slider-info .max-desc {
+    grid-area: max-desc;
+}
+
+.progress-values {
+    display: flex;
+    
+    justify-content: space-between;
+    align-items: center;
+
+    grid-column: 2 / 2;
+    grid-row: 3 / 3;
+}
+
+.survey-nav {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 1em;
+
+    margin-top: 5vh;
+}
+
+.next-btn, .back-btn, .submit-btn {
+    padding-left: 4em;
+    padding-right: 4em;
+
+    font-weight: 700;
+    border-style: none;
+    border-radius: 25px;
+}
+
+.next-btn:hover,
+.submit-btn:hover,
+.prev-btn:hover {
+    text-decoration: none;
+}
+
+.next-btn,
+.submit-btn {
+    background-color: var(--next-btn-color);
+}
+
+.back-btn {
+    background-color: var(--body-bg-color);
+}
+
+.step {
+    display: none; /*this changes later*/
+}
+
+.step.active {
+    display: block;
+}
