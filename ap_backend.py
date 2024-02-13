@@ -6,8 +6,9 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 import numpy as np
 import pandas as pd
-from tensorflow.keras.layers import Input, Dense, Dropout
-from tensorflow.keras.models import Sequential
+import tensorflow as tf
+from keras.layers import Input, Dense, Dropout
+from keras.models import Sequential
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 
@@ -15,6 +16,10 @@ from sklearn.preprocessing import MinMaxScaler
 class AnxietyPredictor:
     """An AI that can predict anxiety levels, according to the GAD-7 scale, based
     on leading factors of anxiety."""
+    
+    model_name = "anxiety_predictor"
+    model_suffix = ".keras"
+    model_directory = os.path.join(os.getcwd(), "static/model/")
     
     def __init__(self, csv_filename="stress_level_dataset.csv"):
         # preparation stage
@@ -118,7 +123,7 @@ class AnxietyPredictor:
             Dense(64, activation="relu"),
             Dense(1, activation="linear") # potentially 1 for every number in gad-7 scale
         ])
-        
+
         return model
     
     
@@ -134,6 +139,30 @@ class AnxietyPredictor:
         model.fit(trainx, trainy, epochs=epochs)
         
         return model.evaluate(testx, testy, verbose=2)
+    
+    
+    def export_model(self, model: Sequential, name=model_name, filetype=model_suffix):
+        """Exports the AI model (and its weights) into a file with options for customized filetype and filename."""
+        model_directory = os.path.join(os.getcwd(), "static/model/")
+        model_filename = name + filetype
+        full_model_path = os.path.join(model_directory, model_filename)
+        
+        model.save(full_model_path)
+        
+        return True
+    
+    
+    def load_model(self, file_path=model_directory):
+        """Load an existing AI model from a filename (path allowed).
+        Return Format: Model (Sequential) or None"""
+        
+        if os.path.exists(file_path):
+            model = tf.keras.models.load_model(file_path)
+            
+            return model
+            
+        else:
+            return None # file/directory does not exist
     
     
     def predict_anxiety(self, model: Sequential, raw_anx_factors: dict[str, int]) -> tuple[float, float]:
