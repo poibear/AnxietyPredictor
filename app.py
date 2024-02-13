@@ -8,8 +8,7 @@ app = Flask(__name__, template_folder="templates")
 
 ai = AnxietyPredictor()
         
-model = ai.build_model()
-ai.train_model(model)
+model = ai.load_model()
 
 @app.route("/")
 def index():
