@@ -19,7 +19,7 @@ class AnxietyPredictor:
     
     model_name = "anxiety_predictor"
     model_suffix = ".keras"
-    model_directory = os.path.join(os.getcwd(), "static/model/")
+    model_directory = os.path.join(os.getcwd(), "static/model")
     
     def __init__(self, csv_filename="stress_level_dataset.csv"):
         # preparation stage
@@ -152,8 +152,8 @@ class AnxietyPredictor:
         return True
     
     
-    def load_model(self, file_path=model_directory):
-        """Load an existing AI model from a filename (path allowed).
+    def load_model(self, file_path=model_directory+model_name+model_suffix):
+        """Load an existing AI model from a path to the file.
         Return Format: Model (Sequential) or None"""
         
         if os.path.exists(file_path):
@@ -266,4 +266,4 @@ if __name__ == "__main__":
     print(f"Raw Guess: {raw_result}, GAD-7 Scaled Guess: {scaled_result:2f}")
     
     # Export the model
-    #instance.export_model(model)
+    # instance.export_model(model)
