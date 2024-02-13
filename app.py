@@ -1,5 +1,4 @@
 # TODO allow customization of dataset for ap_backend, add 404 w/ @app.errorhandler(404) page
-import waitress
 import sqlite3
 import os
 from ap_backend import AnxietyPredictor
@@ -54,8 +53,7 @@ if __name__ == "__main__":
     host = "127.0.0.1"
     port = "8080"
     app.config["TEMPLATES_AUTO_RELOAD"] = True # reload on html change
-    app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0 # no cache
     app.secret_key = 'supa secretz'
     app.debug = True
     
-    app.run(host=host, port=port)  # to avoid retraining ai model twice
+    app.run(host=host, port=port)
