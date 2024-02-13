@@ -1,4 +1,5 @@
-## TODO optimize predict method via numpy calculations
+## TODO optimize predict method via numpy calculation
+## TODO add pruning for accuracy enhancement
 # Disable Tensorflow Warnings/Errors
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -19,7 +20,7 @@ class AnxietyPredictor:
     
     model_name = "anxiety_predictor"
     model_suffix = ".keras"
-    model_directory = os.path.join(os.getcwd(), "static/model")
+    model_directory = os.path.join(os.getcwd(), "static/model/") # model cant load without trailing slash
     
     def __init__(self, csv_filename="stress_level_dataset.csv"):
         # preparation stage
@@ -218,7 +219,7 @@ class AnxietyPredictor:
             
             return (anxiety_raw, anxiety_scaled)
             
-        except [ValueError, TypeError] as e:
+        except (ValueError, TypeError) as e:
             print(e)
             return None
 
@@ -230,11 +231,11 @@ if __name__ == "__main__":
     print("BUILDING MODEL")
     model = instance.build_model()
     
-    # You can also import an existing model file
-    # model = instance.load_model()
-    
     print("TRAINING MODEL")
     instance.train_model(model)
+    
+    # You can also import an existing model file instead of building and training
+    # model = instance.load_model()
     
     #TEST INFO    
     info = {
