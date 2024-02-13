@@ -230,6 +230,9 @@ if __name__ == "__main__":
     print("BUILDING MODEL")
     model = instance.build_model()
     
+    # You can also import an existing model file
+    # model = instance.load_model()
+    
     print("TRAINING MODEL")
     instance.train_model(model)
     
@@ -258,5 +261,9 @@ if __name__ == "__main__":
     
     print("PREDICTING ANXIETY")
     raw_result, scaled_result = instance.predict_anxiety(model, info)
-    # gad-7 ranges from 0-21
+    
+    # GAD-7 scores range from 0-21
     print(f"Raw Guess: {raw_result}, GAD-7 Scaled Guess: {scaled_result:2f}")
+    
+    # Export the model
+    #instance.export_model(model)
