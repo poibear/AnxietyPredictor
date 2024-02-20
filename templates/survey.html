@@ -61,11 +61,11 @@
                             <label for="{{ input_id }}">{{ topic_value[1] }}</label>
                             <div class="slider-info">
                                 <p class="min-desc">{{ topic_value[4] }}</p>
-                                <input type="range" min="{{ topic_value[2] }}" max="{{ topic_value[3] }}" value="{{ (topic_value[2] + topic_value[3]) // 2}}" {% if topic_value[3] > 10 %}step="3"{% endif %} class="slider" name="{{ input_id }}">
+                                <input type="range" min="{{ topic_value[2] }}" max="{{ topic_value[3] }}" value="{{ (topic_value[2] + topic_value[3]) // 2}}" class="slider" name="{{ input_id }}" {% if topic_value[3] > 10 %}step="3"{% endif %}>
                                 <p class="max-desc">{{ topic_value[5] }}</p>
                             </div>
                             <div class="progress-values">
-                                <!--p tags go here-->
+                                <p></p>
                             </div>
                         </div>
                         {% endif %}

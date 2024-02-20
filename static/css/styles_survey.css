@@ -52,7 +52,7 @@
 } */
 
 .progress-bar {
-    background-color: var(--inactive-bar);
+    background: var(--inactive-bar); /*background-color works too*/
 
     border-radius: 25px;
     border-style: none;
@@ -125,14 +125,9 @@ label {
     grid-area: max-desc;
 }
 
-.progress-values {
-    display: flex;
-    
-    justify-content: space-between;
-    align-items: center;
-
-    grid-column: 2 / 2;
-    grid-row: 3 / 3;
+.slider-group .progress-values {
+    grid-area: progress-values;
+    text-align: center;
 }
 
 .survey-nav {

@@ -1,14 +1,24 @@
 # TODO allow customization of dataset for ap_backend, add 404 w/ @app.errorhandler(404) page
 import sqlite3
 import os
+from datetime import datetime
 from ap_backend import AnxietyPredictor
 from flask import Flask, redirect, render_template, request, url_for, flash
 
 app = Flask(__name__, template_folder="templates")
 
 ai = AnxietyPredictor()
-        
+
 model = ai.load_model()
+
+if model is None: # no model file is present
+    # build and train a model
+    model = ai.build_model()
+    ai.train_model(model)
+
+@app.context_processor  # create a custom jinja variable for datetime
+def datetime_variable():
+    return {"datetime": datetime}
 
 @app.route("/")
 def index():

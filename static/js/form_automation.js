@@ -27,9 +27,6 @@ $(document).ready(function () {
         let stepIndex = 0; // start @ 0th step
         let barIndex = 0;
 
-        const inactiveBarClr = $("html").css('--inactive-bar');
-        const activeBarClr = $("html").css('--active-bar');
-
         const stepActive = $("form .step.active");
         const barActive = $(".survey-topic .progress-bar[value='1']");
 
@@ -38,7 +35,6 @@ $(document).ready(function () {
 
         // set current step/bar to inactive before changing next current one
         $(steps[stepIndex]).removeClass("active");
-
         $(progressBars[barIndex]).val("0");
 
         if (action == "next") {
@@ -55,6 +51,11 @@ $(document).ready(function () {
         $(progressBars[barIndex]).val("1");
     }
 
+    function changeProgressVal(slider, progressDisplay) {
+        let currentVal = parseInt($(slider).val());
+        $(progressDisplay).find("p").text(currentVal);
+    }
+
 
     // ALERT CHECK
     if ($(".alert").length) { // check if exists, no need for > 0 since 0 is false
@@ -67,34 +68,14 @@ $(document).ready(function () {
 
     // SET PROGRESS VALUES UNDER SLIDERS
     $('.slider-group').each(function() {
-        let minVal = parseInt($(".slider", this).attr("min"));  // same as $(this).find('.min-desc').val()
-        let maxVal = parseInt($(".slider", this).attr("max"));
+        let slider = $(".slider", this);
+        let progressValues = $(".progress-values", this);
+
+        // Initialize first time progress value
+        changeProgressVal(slider, progressValues);
         
-        console.log(maxVal);
-        if (maxVal <= 10) { // dont list too many numbers
-            // properly adjust range
-            if (minVal === 0) {
-                maxVal++;
-            }
-
-            let progressValues = $(".progress-values", this);
-
-            // Niko Ruotsalainen from https://stackoverflow.com/a/33352604/8341844
-            // Equivalent of range() in Python with start/stop
-            // Modified to create array with ints from minimum to maximum
-
-            let progressRange = Array.from({length: (maxVal)}, (_, i) => i + minVal);
-
-            $.each(progressRange, function(value) {
-                $(progressValues).append(`<p>${value}</p>`);
-            })
-        }
-
-        if (maxVal > 10) { // will display too many items
-            $(progressValues).append(`<p>${minVal}</p>`);
-            $(progressValues).append(`<p>${maxVal}</p>`);
-        }
-
+        $(slider).on("input", function() {
+            changeProgressVal(slider, progressValues);
+        })
     })
-
 });
