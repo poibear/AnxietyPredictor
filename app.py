@@ -1,6 +1,7 @@
 # TODO allow customization of dataset for ap_backend, add 404 w/ @app.errorhandler(404) page
-import sqlite3
 import os
+import math
+import sqlite3
 from datetime import datetime
 from ap_backend import AnxietyPredictor
 from flask import Flask, redirect, render_template, request, url_for, flash
@@ -13,8 +14,7 @@ model = ai.load_model()
 
 if model is None: # no model file is present
     # build, train, and export new model
-    model = ai.build_model()
-    ai.train_model(model)
+    model = ai.train_model()
     ai.export_model(model)
 
 @app.context_processor  # create a custom jinja variable for datetime
@@ -50,10 +50,25 @@ def results():
         return redirect(url_for("form"))
         
     if request.method == "POST":        
-        anxiety_params = {k: v for k, v in request.form.items()}        
-        _, scaled_result = ai.predict_anxiety(model, anxiety_params)
+        topics_db = sqlite3.connect(os.path.join(os.getcwd(), "static/anxiety_factors_form.db"))
+        topic_cursor = topics_db.cursor()
+        
+        bigger_anx_params = topic_cursor.execute(
+            "SELECT max_val FROM topic_names WHERE max_val > 10"
+        ).fetchall()
+        
+        bigger_anx_params = [num[0] for num in bigger_anx_params] #reformat from e.g., [(30,), (27,)] to [30, 27]
+        
+        topic_cursor.close()
+        
+        anx_modifier = math.gcd(*bigger_anx_params)
+        
+        anxiety_params = {k: v for k, v in request.form.items()}
+        # revert any simplified inputs to real values
+        anxiety_params.update({k: anx_modifier*v for k, v in request.form.items() if v in bigger_anx_params})
+        _, scaled_result, gad_name = ai.predict_anxiety(model, anxiety_params)
 
-        return render_template("results.html", anxiety_level=scaled_result)
+        return render_template("results.html", anxiety_level=scaled_result, gad_name=gad_name)
     
     flash("You need to fill out the survey before getting results", "warning")
     return redirect(url_for("form"))

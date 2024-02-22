@@ -8,7 +8,8 @@
 <div class="panel" style="text-align: center;">
     <h2>Your Anxiety Level is</h2>
     <h3>{{ anxiety_level | round(2) }}</h3>
-    <h2>on the GAD-7 Scale of 0-21</h2>
+    <h2>on the GAD-7 Scale</h2>
+    <p>Your anxiety is considered {{ gad_name }}.</p>
 </div>
 
 {% endblock %}

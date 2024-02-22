@@ -252,10 +252,7 @@ if __name__ == "__main__":
     instance = AnxietyPredictor()
     
     print("BUILDING MODEL")
-    model = instance.build_model()
-    
-    print("TRAINING MODEL")
-    instance.train_model(model)
+    model = instance.train_model()
     
     # You can also import an existing model file instead of building and training
     # model = instance.load_model()

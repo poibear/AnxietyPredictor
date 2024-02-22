@@ -52,7 +52,7 @@ scikit-learn (1.3.2)
 notebook* (7.0.6)
 ipykernel* (6.28.0)
 ```
-\* - Dependencies are essential for running the proof of concept Jupyter Notebook in the TESTING directory
+\* - Starred dependencies are essential for running the proof of concept Jupyter Notebook in the Backend Visualizer directory
 
 
 ### Suggestions

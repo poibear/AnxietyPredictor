@@ -64,7 +64,7 @@
                                 {% if topic_value[3] > 10 %}
                                     <input type="range" min="{{ topic_value[2] }}" max="{{ topic_value[3] // 3 }}" value="{{ ((topic_value[2] + topic_value[3]) // 2) // 3}}" class="slider" name="{{ input_id }}">
                                 {% else %}
-                                    <input type="range" min="{{ topic_value[2] }}" max="{{ topic_value[3] }}" value="{{ (topic_value[2] + topic_value[3]) // 2}}" class="slider" name="{{ input_id }}">
+                                <input type="range" min="{{ topic_value[2] }}" max="{{ topic_value[3] }}" value="{{ (topic_value[2] + topic_value[3]) // 2}}" class="slider" name="{{ input_id }}">
                                 {% endif %}
                                 <p class="max-desc">{{ topic_value[5] }}</p>
                             </div>
