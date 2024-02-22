@@ -112,9 +112,11 @@ class AnxietyPredictor:
         return (trainx, testx, trainy, testy)
     
     
-    def build_model(self) -> Sequential:
-        """Constructs and returns an AI (Sequential) model.
-        Return Format: Sequential Model"""
+    def train_model(self, epochs=30, optimizer="adam", loss="mean_squared_error", metrics=["accuracy"]) -> Sequential:
+        """Constructs, trains and validates the AI model on the dataset.
+        Keyword arguments are passed into its fit (training) method.
+        Returns a compiled model.
+        Return Format: Sequential"""
         trainx_shape = self.nn_dataset[0].shape # no need to check if this exists
         print(f"trainx_shape: {trainx_shape}")
         
@@ -127,22 +129,14 @@ class AnxietyPredictor:
             Dense(64, activation="relu"),
             Dense(1, activation="linear") # potentially 1 for every number in gad-7 scale
         ])
-
-        return model
-    
-    
-    def train_model(self, model: Sequential, epochs=30, optimizer="adam", loss="mean_squared_error", metrics=["accuracy"]) -> Sequential:
-        """Trains and validates the AI model on the dataset.
-        Keyword arguments are passed into its fit (training) method.
-        Returns the trained model.
-        Return Format: Sequential"""
         
         model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
         
         trainx, testx, trainy, testy = self.nn_dataset
         model.fit(trainx, trainy, epochs=epochs)
         
-        return model.evaluate(testx, testy, verbose=2)
+        model.evaluate(testx, testy, verbose=2)
+        return model
     
     
     def export_model(self, model: Sequential, name=model_name, filetype=model_suffix) -> Optional[bool]:
@@ -187,8 +181,8 @@ class AnxietyPredictor:
             
         gad_names = {category: list(range(start, end+1)) for category, (start, end) in gad_scaling}
 
-        for category, gad_range in gad_scaling.items():
-            if gad_number in gad_range:
+        for category, gad_range in gad_names.items():
+            if gad_range[0] <= int(gad_number) <= gad_range[-1]: # prevent issues with scores in-between transition
                 return category
         return None
         
