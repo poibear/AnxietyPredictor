@@ -8,10 +8,11 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from keras.layers import Input, Dense, Dropout
+from typing import Optional
 from keras.models import Sequential
-from sklearn.model_selection import train_test_split
+from keras.layers import Input, Dense, Dropout
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
 
 
 class AnxietyPredictor:
@@ -32,7 +33,7 @@ class AnxietyPredictor:
         self.nn_dataset = self._prepare_dataset(self.normalized_ai_dataset)
     
     
-    def _load_dataset(self, csvfilename) -> pd.DataFrame:
+    def _load_dataset(self, csvfilename) -> Optional[pd.DataFrame]:
         """Loads a (CSV) dataset used to train the AI model by its filename
         Returns a Pandas DataFrame of the dataset when successfully loaded
         Returns None when the path to the dataset cannot be found
@@ -51,11 +52,13 @@ class AnxietyPredictor:
                 f"Error when loading dataset at the current working directory in method \"{self._load_dataset.__name__}\".\n"
             +   f"Are you sure your file is in the same directory as this file \"{os.path.basename(__file__)}\"?"
             )
+            return None
         
         except pd.errors.ParserError:
             print(
                 f"Error when parsing the dataset. Are you sure the dataset is in CSV format?"
             )
+            return None
     
     
     def _get_data_points(self, df: pd.DataFrame, label_index=0) -> tuple[list, str]:
@@ -109,7 +112,7 @@ class AnxietyPredictor:
         return (trainx, testx, trainy, testy)
     
     
-    def build_model(self):
+    def build_model(self) -> Sequential:
         """Constructs and returns an AI (Sequential) model.
         Return Format: Sequential Model"""
         trainx_shape = self.nn_dataset[0].shape # no need to check if this exists
@@ -142,18 +145,23 @@ class AnxietyPredictor:
         return model.evaluate(testx, testy, verbose=2)
     
     
-    def export_model(self, model: Sequential, name=model_name, filetype=model_suffix):
+    def export_model(self, model: Sequential, name=model_name, filetype=model_suffix) -> Optional[bool]:
         """Exports the AI model (and its weights) into a file with options for customized filetype and filename."""
-        model_directory = os.path.join(os.getcwd(), "static/model/")
-        model_filename = name + filetype
-        full_model_path = os.path.join(model_directory, model_filename)
+        try:
+            model_directory = os.path.join(os.getcwd(), "static/model/")
+            model_filename = name + filetype
+            full_model_path = os.path.join(model_directory, model_filename)
+            
+            model.save(full_model_path)
         
-        model.save(full_model_path)
-        
-        return True
+            return True
+
+        except Exception as e:
+            print(e)
+            return False
     
     
-    def load_model(self, file_path=model_directory+model_name+model_suffix):
+    def load_model(self, file_path=model_directory+model_name+model_suffix) -> Optional[Sequential]:
         """Load an existing AI model from a path to the file.
         Return Format: Model (Sequential) or None"""
         
@@ -166,12 +174,31 @@ class AnxietyPredictor:
             return None # file/directory does not exist
     
     
-    def predict_anxiety(self, model: Sequential, raw_anx_factors: dict[str, int]) -> tuple[float, float]:
+    def _find_gad_category(self, gad_number: float) -> Optional[str]:
+        """Takes a float GAD-7 scaled number and returns an appropriate category if applicable.
+        Returns None if the GAD number does not match any defined category ranges.
+        Return Format: GAD-7 Category"""
+        gad_scaling = [
+            ("minimal", (0, 4)),
+            ("mild", (5, 9)),
+            ("moderate", (10, 14)),
+            ("severe", (15, 21))
+        ]
+            
+        gad_names = {category: list(range(start, end+1)) for category, (start, end) in gad_scaling}
+
+        for category, gad_range in gad_scaling.items():
+            if gad_number in gad_range:
+                return category
+        return None
+        
+    
+    def predict_anxiety(self, model: Sequential, raw_anx_factors: dict[str, int]) -> Optional[tuple[float, float]]:
         """Use the AI model to predict an anxiety level based on leading factors in the dataset.
         This method does NOT accept a label for AI prediction (defeats the entire purpose).
         Method takes **kwargs for each parameter, with keys being the factors and items being
         the values in their respective non-formatted scaling.
-        Return Format: (Normalized Guess, Scaled (GAD-7) Guess) or None"""
+        Return Format: (Normalized Guess, Scaled (GAD-7) Guess, GAD-7 Categorization) or None"""
         try:
             # scikit minmaxscaler requires preserved order to normalize
             ordered_keys = [
@@ -192,9 +219,9 @@ class AnxietyPredictor:
                 "social_support",
                 "peer_pressure",
                 "extracurricular_activities",
-                "bullying",
+                "bullying"
             ]
-            
+                    
             #anx_factors = {k: [int(v)] for k, v in raw_anx_factors.items()}
             anx_factors = {k: [int(raw_anx_factors[k])] for k in ordered_keys}
             
@@ -217,7 +244,7 @@ class AnxietyPredictor:
             anxiety_raw = prediction[0][0]
             anxiety_scaled = float(resultdf.loc[0, self.label])
             
-            return (anxiety_raw, anxiety_scaled)
+            return (anxiety_raw, anxiety_scaled, )
             
         except (ValueError, TypeError) as e:
             print(e)
