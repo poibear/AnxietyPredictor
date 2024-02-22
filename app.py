@@ -12,9 +12,10 @@ ai = AnxietyPredictor()
 model = ai.load_model()
 
 if model is None: # no model file is present
-    # build and train a model
+    # build, train, and export new model
     model = ai.build_model()
     ai.train_model(model)
+    ai.export_model(model)
 
 @app.context_processor  # create a custom jinja variable for datetime
 def datetime_variable():

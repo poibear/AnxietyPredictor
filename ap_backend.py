@@ -244,7 +244,9 @@ class AnxietyPredictor:
             anxiety_raw = prediction[0][0]
             anxiety_scaled = float(resultdf.loc[0, self.label])
             
-            return (anxiety_raw, anxiety_scaled, )
+            gad_score = self._find_gad_category(anxiety_scaled)
+            
+            return (anxiety_raw, anxiety_scaled, gad_score)
             
         except (ValueError, TypeError) as e:
             print(e)

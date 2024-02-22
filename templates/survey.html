@@ -1,7 +1,7 @@
 <!--inspo layout: https://dribbble.com/shots/20600544-Online-Cook-Survey-Design-->
 <!--gradual step form process from: https://www.youtube.com/watch?v=cKTgIDkRsGc-->
 <!--TODO: replicate gradual progress behavior in blue bars instead of active only-->
-<!--find a dynamic number to replace step value in slider-->
+<!--TODO: change hardcoded floor division for bigger input values to be dynamic-->
 {% extends "layout.html" %}
 
 {% block title %}
@@ -61,7 +61,11 @@
                             <label for="{{ input_id }}">{{ topic_value[1] }}</label>
                             <div class="slider-info">
                                 <p class="min-desc">{{ topic_value[4] }}</p>
-                                <input type="range" min="{{ topic_value[2] }}" max="{{ topic_value[3] }}" value="{{ (topic_value[2] + topic_value[3]) // 2}}" class="slider" name="{{ input_id }}" {% if topic_value[3] > 10 %}step="3"{% endif %}>
+                                {% if topic_value[3] > 10 %}
+                                    <input type="range" min="{{ topic_value[2] }}" max="{{ topic_value[3] // 3 }}" value="{{ ((topic_value[2] + topic_value[3]) // 2) // 3}}" class="slider" name="{{ input_id }}">
+                                {% else %}
+                                    <input type="range" min="{{ topic_value[2] }}" max="{{ topic_value[3] }}" value="{{ (topic_value[2] + topic_value[3]) // 2}}" class="slider" name="{{ input_id }}">
+                                {% endif %}
                                 <p class="max-desc">{{ topic_value[5] }}</p>
                             </div>
                             <div class="progress-values">
