@@ -59,8 +59,19 @@ ipykernel* (6.28.0)
 The implementation of this project is open to suggestions in the [Error](https://github.com/poibear/AnxietyPredictor/errors) section of this repository. The code is prone to sluggish execution time and is always open to optimization in all aspects (especially backend processes).
 
 ## Attribution & License
-This project is licensed under the GNU General Public License v3.0. Additionally, this project's dataset, "Student Stress Factors: A Comprehensive Analysis," is licensed under the Apache License 2.0. Refer to the [LICENSE](LICENSE.txt) file regarding usage on the project and the [DATASET LICENSE](DATASET_LICENSE.txt) file for more details on usage of the dataset.
+This project is licensed under the MIT License. Additionally, this project's dataset, "Student Stress Factors: A Comprehensive Analysis," is licensed under the Apache License 2.0. Refer to the [LICENSE](LICENSE.txt) file regarding appropriate usage on this project and the code snippets from Youtube alongside the [APACHE LICENSE](APACHE_LICENSE.txt) file for more details on usage of the dataset. Below are the resources used to compile this web app (it may help to learn something new from these sources).
 - **Student Stress Factors: A Comprehensive Analysis**
     - Source: Kaggle (Uploader: [rxnach](https://www.kaggle.com/rxnach))
     - License: Apache 2.0
     - Link: [Kaggle Dataset](https://www.kaggle.com/datasets/rxnach/student-stress-factors-a-comprehensive-analysis/)
+    - Modifications: Removal of Teacher-Student Relationship and Stress Level attributes for training of AI model
+- **Multi Step Form Using HTML, CSS & Javascript**
+    - Source: Youtube (Uploader: [WEB CIFAR](https://www.youtube.com/@webcifar))
+    - License: MIT License (under [CodePen.io's Public Licensing](https://blog.codepen.io/documentation/licensing/))
+    - Link: [How to Create Multi Step Form Using HTML, CSS & JavaScript](https://www.youtube.com/watch?v=cKTgIDkRsGc)
+    - Modifications: Written mainly in JQuery instead of pure JS
+- **Custom Range Slider**
+  - Source: Youtube (Uploader: [MinzCode](https://www.youtube.com/@minzcode))
+  - License: MIT License (under [CodePen.io's Public Licensing](https://blog.codepen.io/documentation/licensing/))
+  - Link: [Video: Custom Range Slider - HTML + CSS + JS](https://www.youtube.com/watch?v=gjPllrhIYsM), [Code at CodePen.io](https://codepen.io/MinzCode/pen/rNxYYOZ)
+  - Modifications: Adjusted bar fill to match with sliders on result page (out of 100 to out of 21)
