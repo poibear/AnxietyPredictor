@@ -39,6 +39,22 @@ ___
 ### Implementation
 This project utilizes a Flask app, acting as a front-end interface for the end user, to receive and display results of their anxiety levels. The backend process is powered by a Python class that trains an AI model that will predict based on given anxiety factor levels. Inputs from the end user are POSTed from a form whose values are displayed from retrieved attributes and descriptions in a database. The results are are processed through the AI model for its predictions and are sent back to the end user to receive their GAD-7 scaled anxiety level on a new page.
 
+### Analysis of Each Prominent File/Directory
+``app.py``: The main Flask file that operates all backend services when routing webpages to the client. Aside from loading the AI model to be used alongside the web app, this file is responsible for providing the webpages with sufficient data personalized to each client. It takes any important information stored from a db file in the static directory and routes it to a Flask template for further manipulation. This file also starts Flask and notifies Flask where to find the webpages in the filesystem.
+
+``ap_backend.py``: The Python file responsible for building an AI model and handling predictions when given. The file is made from scratch, so imperfections are common in the code. This file is mainly responsible for manipulating instances of the AI model, with methods like viewing its dataset and converting GAD-7 numbers to category names for troubleshooting. A test scenario is briefly documented and available to use when running the program to get a gist of how the AnxietyPredictor class can be used.
+
+``anxiety_factors_info.db`` Located in the static directory, this database file holds information to display on the webapp's form for AI prediction. Rather than store multiple anxietal factors in the form's template file, the database file makes it easier to access and add new factors for when any changes occur with the AI model's training.
+
+``templates`` The directory that holds the webpages you see when running the webapp. It mainly consists of a homepage, a form to submit your anxietal factors, and a result page that shows what the AI predicts your anxiety might be on the GAD-7 scale.
+
+``model`` This directory is intended to store the AI model as a ``.keras`` file for easy loading when using the webapp. Rather than build a new model every time the webapp is run, this directory makes it handy for start-up times to decrease when using an existing model. You are free to build the model with your own computer or server, though, I will provide a model file for those that cannot compute its training in a timely manner.
+
+``css`` This directory holds the styling files that make the webpages look fancy. They are a work in progress and are not perfect but I am open to suggestions on improving this directory's proper use of CSS.
+
+``images`` Self-explanatory. This directory holds images used for the webapp that you will see mostly throughout the homepage and on the form page.
+
+
 ### Usage
 Execute ``app.py`` and navigate to your local IP (or [localhost](localhost:8080)) on port 8080.
 
