@@ -25,9 +25,13 @@ def datetime_variable():
 def index():
     return render_template("index.html")
 
+@app.route("/about-us")
+def about_us():
+    return render_template("about-us.html")
+
 @app.route("/form")
 def form():     
-    topics_db = sqlite3.connect(os.path.join(os.getcwd(), "static/anxiety_factors_form.db"))
+    topics_db = sqlite3.connect(os.path.join(os.getcwd(), "static/anxiety_factors_info.db"))
     topic_cursor = topics_db.cursor()
     
     topic_values = topic_cursor.execute(
@@ -50,7 +54,7 @@ def results():
         return redirect(url_for("form"))
         
     if request.method == "POST":        
-        topics_db = sqlite3.connect(os.path.join(os.getcwd(), "static/anxiety_factors_form.db"))
+        topics_db = sqlite3.connect(os.path.join(os.getcwd(), "static/anxiety_factors_info.db"))
         topic_cursor = topics_db.cursor()
         
         bigger_anx_params = topic_cursor.execute(
@@ -58,6 +62,9 @@ def results():
         ).fetchall()
         
         bigger_anx_params = [num[0] for num in bigger_anx_params] #reformat from e.g., [(30,), (27,)] to [30, 27]
+        gad_info = topic_cursor.execute(
+            "SELECT category, min, max, description FROM gad_scaling"
+        ).fetchall()
         
         topic_cursor.close()
         
@@ -67,8 +74,8 @@ def results():
         # revert any simplified inputs to real values
         anxiety_params.update({k: anx_modifier*v for k, v in request.form.items() if v in bigger_anx_params})
         _, scaled_result, gad_name = ai.predict_anxiety(model, anxiety_params)
-
-        return render_template("results.html", anxiety_level=scaled_result, gad_name=gad_name)
+        
+        return render_template("results.html", anxiety_level=scaled_result, gad_name=gad_name, gad_info=gad_info)
     
     flash("You need to fill out the survey before getting results", "warning")
     return redirect(url_for("form"))

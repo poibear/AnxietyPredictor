@@ -1,5 +1,5 @@
 :root {
-    --survey-color: #3F481F;
+    --survey-color: #333333; /*#3f481f*/
 
     --inactive-bar: #222610;
     --active-bar: #44357B;

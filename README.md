@@ -60,6 +60,12 @@ The implementation of this project is open to suggestions in the [Error](https:/
 
 ## Attribution & License
 This project is licensed under the MIT License. Additionally, this project's dataset, "Student Stress Factors: A Comprehensive Analysis," is licensed under the Apache License 2.0. Refer to the [LICENSE](LICENSE.txt) file regarding appropriate usage on this project and the code snippets from Youtube alongside the [APACHE LICENSE](APACHE_LICENSE.txt) file for more details on usage of the dataset. Below are the resources used to compile this web app (it may help to learn something new from these sources).
+- **ChatGPT**
+    - Source: [OpenAI](https://openai.com/)
+    - License: None
+    - Link: [chat.openai.com](https://chat.openai.com) 
+    - Modifications: None
+    - Use case: Generate relevant text to the project that compels the reader
 - **Student Stress Factors: A Comprehensive Analysis**
     - Source: Kaggle (Uploader: [rxnach](https://www.kaggle.com/rxnach))
     - License: Apache 2.0

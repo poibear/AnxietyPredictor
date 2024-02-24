@@ -179,11 +179,13 @@ nav {
   overflow: hidden;
 }
 
-#hero-banner h1 {
+#hero-content {
+  display: flex;
   position: absolute;
-  z-index: 3;
 
-  padding-left: 0.8em;
+  flex-direction: column;
+
+  padding-left: 3em;
 
   top: 30%;
   left: 0;
@@ -191,8 +193,16 @@ nav {
   max-width: 50%;
   height: auto;
 
+  z-index: 3;
+}
+
+#hero-content h1 {
   font-size: 4.25em;
-  transform: scaleY(1.05);
+}
+
+#hero-content .explore-btn {
+  width: 20%;
+  height: 10%;
 }
 
 main p {
@@ -207,20 +217,15 @@ section {
   margin: 8vh 0 8vh 0;
 }
 
-.why-us .section-flex .section-left,
-.why-us .section-flex .section-right {
-  flex-basis: 30px;
-}
-
 .centered {
-  align-items: center;
-  align-self: center;
   text-align: center;
   justify-content: center;
 }
 
 .section-flex {
   display: flex;
+
+  justify-content: center;
 }
 
 .section-left,
@@ -233,6 +238,7 @@ section {
 }
 
 .section-center {
+  align-self: center;
   align-items: center;
   text-align: center;
 
@@ -244,12 +250,15 @@ section {
   margin-top: 3vh;
 }
 
-
+/* CHANGE LATER */
+main .section-center {
+  flex-basis: 100em;
+}
 
 .section-left {
   flex: 1;
   padding: 1.5em 1.5em 1.5em 0;
-  align-self: flex-start;
+  /* align-self: flex-start; */
   flex-shrink: 0;
   /*avoid line break*/
 }
@@ -274,9 +283,9 @@ section {
   font-size: 1.5em;
 }
 
-.section-left p {
+/* .section-left p {
   color: #a4a4a4;
-}
+} */
 
 .explore {
   display: flex;
@@ -302,14 +311,24 @@ main section .description {
   color: var(--home-desc-color);
 }
 
+.explore-btn {
+  max-width: 50%;
+  background-color: white;
+}
+
 .explore-btn a {
+  color: black;
   font-size: 1.2em;
   font-weight: 700;
 }
 
+.explore-btn:hover {
+  background-color: rgb(187, 187, 187);
+  color: black;
+}
+
 .panel {
   background-color: #23251f;
-  /*363733*/
 
   padding: 1.25em 1.25em 1.25em 1.25em;
 

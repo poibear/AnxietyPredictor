@@ -1,5 +1,4 @@
 <!--https://dribbble.com/shots/23291447-Creacy-Photography-Agency-Landing-Page-->
-<!--https://dribbble.com/shots/22141587-Audio-Systems-Landing-Page-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,18 +32,21 @@
                         <button class="nav-pill-btn"><a href="about-us">About Us</a></button>
                         <button class="nav-pill-btn"><a href="//github.com/poibear/AnxietyPredictor">Github</a></button>
                     </div>
-                    <button><a href="form"><b>GET STARTED</b></a></button>
+                    
                 </div>
             </nav>
             <img class="hero-img" src="{{ url_for('static', filename='images/hero-banner.png') }}"
                 alt="Hero Banner of Man in Distress with Hand on Forehead Sitting on Couch in Dark Room" />
-            <h1>Revolutionizing anxiety profiling with artificial intelligence insight</h1>
+            <div id="hero-content">
+                <h1>Revolutionizing anxiety profiling with artificial intelligence insight</h1>
+                <button class="explore-btn"><a href="form">GET STARTED</a></button>
+            </div>   
         </div>
     </header>
     <main>
         <section>
             <div class="section-flex centered">
-                <div class="section-center">
+                <div class="section-center" style="flex-basis: 50%;">
                     <h2>About AnxietySense</h2>
                     <span class="bold-statement">
                         Our <b>mission</b> is to empower you by unraveling <b>hidden anxiety factors</b>,
@@ -59,7 +61,7 @@
                 </div>
             </div>
         </section>
-        <section class="why-us centered">
+        <section class="section-flex centered">
             <div class="panel">
                 <h2>Why Choose Us?</h2> <!--fix this padding later-->
                 <div class="section-center">
@@ -93,7 +95,7 @@
         </section>
         <section>
             <div class="section-flex centered">
-                <div class="section-center explore">
+                <div class="section-center explore" style="flex-basis: 25%;">
                     <h2>Ready to Start?</h2>
                     <p>
                         Take the first step towards understanding your anxiety—share your factors,
