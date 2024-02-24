@@ -1,5 +1,5 @@
 # Anxiety Level Prediction
-#### Video Demo: <URL>
+#### Video Demo: [AnxietySense Demo](https://youtu.be/yrZkjMtTVE8)
 #### Description:
 Students share a burden of neverending work as they progress through high school and college. Many are unaware by what potential factors increase their buildup of anxiety aside from their work. This project uses a AI model, trained on physiological and health-related indicators, to predict an individual's potential anxiety level. The AI model is trained on a dataset involving (# of ) students and their anxietal factors. Leading factors are including but not limited to sleep quality, blood pressure, headaches, and self esteem. Students will be given a prediction from the AI model on their suggested anxiety levels, most significant factors leading to their anxiety, and potential solutions to dealing with their anxietial factors. Individuals will be able to identify leading factors of their anxiety, if any, and find solutions to lower their anxiety levels after interacting with this project.
 
@@ -54,6 +54,7 @@ This project utilizes a Flask app, acting as a front-end interface for the end u
 
 ``images`` Self-explanatory. This directory holds images used for the webapp that you will see mostly throughout the homepage and on the form page.
 
+``js`` This directory handles all the slider bars and animations for the form page to help you easily progress through the questionaire that is given.
 
 ### Usage
 Execute ``app.py`` and navigate to your local IP (or [localhost](localhost:8080)) on port 8080.
