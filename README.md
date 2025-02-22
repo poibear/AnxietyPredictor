@@ -73,10 +73,10 @@ ipykernel* (6.28.0)
 
 
 ### Suggestions
-The implementation of this project is open to suggestions in the [Error](https://github.com/poibear/AnxietyPredictor/errors) section of this repository. The code is prone to sluggish execution time and is always open to optimization in all aspects (especially backend processes).
+The implementation of this project is open to suggestions in the [Issues](https://github.com/poibear/AnxietyPredictor/issues) section of this repository. The code is prone to sluggish execution time and is always open to optimization in all aspects (especially backend processes).
 
 ## Attribution & License
-This project is licensed under the MIT License. Additionally, this project's dataset, "Student Stress Factors: A Comprehensive Analysis," is licensed under the Apache License 2.0. Refer to the [LICENSE](LICENSE.txt) file regarding appropriate usage on this project and the code snippets from Youtube alongside the [APACHE LICENSE](APACHE_LICENSE.txt) file for more details on usage of the dataset. Below are the resources used to compile this web app (it may help to learn something new from these sources).
+This project is licensed under the MIT License. Additionally, this project's dataset, "Student Stress Factors: A Comprehensive Analysis," is licensed under the Apache License 2.0. Refer to the [LICENSE](LICENSE.txt) file regarding appropriate usage on this project and the code snippets from Youtube alongside the [APACHE LICENSE](APACHE_LICENSE.txt) file for more details on usage of the dataset. Below are the resources used to compile this web app (it may help you learn something new from these sources).
 - **ChatGPT**
     - Source: [OpenAI](https://openai.com/)
     - License: None
