@@ -10,6 +10,7 @@ app = Flask(__name__, template_folder="templates")
 
 ai = AnxietyPredictor()
 
+# defaults to load @ path ./static/model/anxiety_predictor.keras
 model = ai.load_model()
 
 if model is None: # no model file is present

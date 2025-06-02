@@ -121,7 +121,7 @@ class AnxietyPredictor:
         print(f"trainx_shape: {trainx_shape}")
         
         model = Sequential([
-            Input(shape=trainx_shape[1]), #number of features is input shape
+            Input(shape=(trainx_shape[1],)), #number of features is input shape
             Dense(64, activation="relu"),
             Dropout(0.2), # prevent model from adapting to training data
             Dense(64, activation="relu"),
@@ -243,7 +243,6 @@ class AnxietyPredictor:
             return (anxiety_raw, anxiety_scaled, gad_score)
             
         except (ValueError, TypeError) as e:
-            print(e)
             return None
 
 
@@ -281,10 +280,10 @@ if __name__ == "__main__":
 
     
     print("PREDICTING ANXIETY")
-    raw_result, scaled_result = instance.predict_anxiety(model, info)
+    raw_result, scaled_result, gad_score = instance.predict_anxiety(model, info)
     
     # GAD-7 scores range from 0-21
-    print(f"Raw Guess: {raw_result}, GAD-7 Scaled Guess: {scaled_result:2f}")
+    print(f"Raw Guess: {raw_result:.2f}, GAD-7 Scaled Guess: {scaled_result:2f}, GAD-7 Category: {gad_score}")
     
     # Export the model
     # instance.export_model(model)
