@@ -1,10 +1,27 @@
-__pycache__/
-.vscode/
-bin/
-etc/
-include/
-lib/
-lib64
-share/
-pyvenv.cfg
-static/model/*
+# ignore everything first
+*
+
+# important core files
+!README.md
+!ap_backend.py
+!app.py
+!stress_level_dataset.csv
+
+# licenses
+!APACHE_LICENSE.txt
+!LICENSE.txt
+
+# notebook of entire program
+!Backend Visualizer/
+!Backend Visualizer/**
+
+# webapp files
+# html files
+!templates/
+!templates/**
+
+# static files
+!static/
+!static/**
+
+
